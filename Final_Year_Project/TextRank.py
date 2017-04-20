@@ -38,18 +38,14 @@ class Summarization:
 		self.nx_graph = nx.from_scipy_sparse_matrix(self.similarity_graph)
 		self.scores = nx.pagerank(self.nx_graph)
 		self.sorted_text = sorted(((self.scores[i],s) for i,s in enumerate(self.sentences)),reverse=True)
-		if(debug):
-			print "\n\n"
-			print "Scores.....\n"
-			print self.sorted_text
 		return self.sorted_text
 		
 	def summarized_text(self):
 		self.summary=""
-		for i in range(len(self.sorted_text)):
+		for i in range(len(self.sorted_text)/4):
 			self.summary+=self.sorted_text[i][1]
 		self.summary = ' '.join(self.summary.strip().split('\n'))
-		self.summary = ' '.join(self.summary.split())		
+		self.summary = ' '.join(self.summary.split())	
 		return self.summary
 
 #if __name__ == "__main__":

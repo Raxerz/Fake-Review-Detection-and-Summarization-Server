@@ -145,11 +145,11 @@ def cosinesimilarity(domain):
 	fwo = open(settings.DATASET_PATH + "goldreviewers.txt","r")
 	goldstdreviewers = fwo.read().strip().split("\n")
 	for i in range(m-1):
-		if docs[i]['reviewerID'] not in reviewer:
-			reviewer[docs[i]['reviewerID']]=0
 		cos_sim = cosine_similarity(tfidf_matrix[i:i+1], tfidf_matrix)
 		for j in range(len(cos_sim[0])):
 			if cos_sim[0][j] > 0.75 and i!=j and docs[i]['reviewerID']==docs[j]['reviewerID'] and not doneflag[i] and not doneflag[j] and docs[i]['reviewerID'] not in goldstdreviewers:
+				if docs[i]['reviewerID'] not in reviewer:
+					reviewer[docs[i]['reviewerID']]=0
 				doneflag[i] = doneflag[j] = 1
 				reviewer[docs[i]['reviewerID']]+=1
 	return reviewer
