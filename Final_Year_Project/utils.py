@@ -1,5 +1,7 @@
 import re
 import sys
+import csv
+import sys
 import gzip
 import json
 import nltk
@@ -153,6 +155,34 @@ def cosinesimilarity(domain):
 				doneflag[i] = doneflag[j] = 1
 				reviewer[docs[i]['reviewerID']]+=1
 	return reviewer
+
+def reviewBased(domain):
+	f = open(settings.ML_PATH+domain.lower()+'_review_label.csv', 'rt')
+	reviewerlist = {'reviewerID':[], 'brandID':[], 'label':[]}
+	try:
+	    reader = csv.reader(f)
+	    for row in reader:
+		if row[8]=="FAKE":
+			reviewerlist["reviewerID"].append(row[0])
+			reviewerlist["brandID"].append(row[1])
+			reviewerlist["label"].append(row[8])
+	finally:
+	    f.close()
+	return reviewerlist
+
+def getreviewdetails(domain, reviewerID, brandID):
+	g = gzip.open(settings.GZIP_PATH + domain.lower() + '.json.gz', 'r')
+	reviewerInfo = {"review":[],"brand":[],"reviewerName":"","reviewerID":""}
+	for l in g:
+		json_data = json.dumps(eval(l))
+		json_obj = re.match(r'(\{.*})',json_data)
+		data = json.loads(json_obj.group())
+		if data["reviewerID"]==reviewerID and data["asin"]==brandID:
+			reviewerInfo["review"].append(data["reviewText"])
+			reviewerInfo["brand"].append(data["asin"])
+			reviewerInfo["reviewerName"]=data["reviewerName"]
+			reviewerInfo["reviewerID"]=data["reviewerID"]
+	return reviewerInfo	
 
 '''def getreviewdetails(domain, reviewerID):
 	g = gzip.open(settings.GZIP_PATH + domain.lower() + '.json.gz', 'r')

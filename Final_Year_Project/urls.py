@@ -25,4 +25,6 @@ urlpatterns = [
     url(r'^reviewerbased$', views.reviewer, name='reviewer'),
     url(r'^reviewerinfo$', views.reviewerInfo, name='reviewerinfo'),
     url(r'^cossim$', views.cosineSim, name='cossim'),
+    url(r'^reviewbased$', views.review, name='review'),
+    url(r'^reviewinfo$', views.reviewInfo, name='reviewinfo'),
 ]
