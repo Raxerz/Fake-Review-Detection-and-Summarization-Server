@@ -1,7 +1,6 @@
 import re
 import sys
 import csv
-import sys
 import gzip
 import json
 import nltk
