@@ -6,3 +6,4 @@ subjectivity
 conll2000
 wordnet
 punkt
+averaged_perceptron_tagger
