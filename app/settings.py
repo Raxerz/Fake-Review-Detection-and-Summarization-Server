@@ -128,27 +128,28 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+DATASET_ROOT = os.path.join(BASE_DIR, 'static/datasets')
+
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static")
+    os.path.join(BASE_DIR, "static"),
+    DATASET_ROOT
 ]
 
-DATSET_ROOT = os.path.join(STATIC_URL, '/datasets')
+DATASET_BRANDS_PATH = os.path.join(DATASET_ROOT,'Brands/')
 
-DATASET_BRANDS_PATH = os.path.join(DATSET_ROOT,'Brands/')
-
-DATASET_PATH = os.path.join(DATSET_ROOT,'Reviews/')
+DATASET_PATH = os.path.join(DATASET_ROOT,'Reviews/')
 
 SRC_PATH = os.path.join(STATIC_URL,'src/')
 
-ML_PATH = os.path.join(DATSET_ROOT,'ML/')
+ML_PATH = os.path.join(DATASET_ROOT,'ML/')
 
-GZIP_PATH = os.path.join(DATSET_ROOT,'Raw/')
+GZIP_PATH = os.path.join(DATASET_ROOT,'Raw/')
 
-JSON_LOC = os.path.join(DATSET_ROOT,'ReviewDetails/')
+JSON_LOC = os.path.join(DATASET_ROOT,'ReviewDetails/')
 
 CUSTOM_MODEL_PATH = os.path.join(STATIC_URL,'src/')
 
-STOP_WORD_PATH = os.path.join(DATSET_ROOT,'Raw/')
+STOP_WORD_PATH = os.path.join(DATASET_ROOT,'Raw/')
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/dev/howto/static-files/
