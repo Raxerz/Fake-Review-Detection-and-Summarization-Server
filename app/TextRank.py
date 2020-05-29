@@ -49,15 +49,12 @@ class Summarization:
 		self.summary = ' '.join(self.summary.split())
 		return self.summary
 
-#if __name__ == "__main__":
 def summaryGen(fileName,domain,debugging=False):
 	global debug
 	debug=debugging
 	content=""
-	#f=open("../datasets/"+domain+"/"+fileName+".txt","r")
-	brands_reviews = load(DATASET_PATH + domain.lower() + '.npz', allow_pickle=True)
+	brands_reviews = load(REVIEWS_DATASET_PATH + domain.lower() + '.npz', allow_pickle=True)
 	brands_reviews = brands_reviews['arr_0'].tolist()
-	#brands_reviews = pickle.load( open(DATASET_PATH+domain.lower()+".pickle", "rb" ) )
 	review_data = brands_reviews[fileName]
 	for i in review_data:
 		content+=i["review"]

@@ -10,7 +10,6 @@ from . import TextRank
 import pandas as pd
 from . import TFIDFSummary
 from . import CustomReview
-sys.path.append(SRC_PATH)
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from numpy import savez_compressed, load
@@ -19,10 +18,8 @@ from numpy import savez_compressed, load
 object_file = None
 def brandsParse(domain):
 	global object_file
-	object_file = load(DATASET_BRANDS_PATH + domain.lower() + ".npz", allow_pickle=True)
+	object_file = load(BRANDS_DATASET_PATH + domain.lower() + ".npz", allow_pickle=True)
 	object_file = object_file['arr_0'].tolist()
-	#f = open(DATASET_BRANDS_PATH + domain.lower() + ".pickle",'rb')
-	#object_file = pickle.load(f)
 	c=0
 	brandslist={}
 	for brand in object_file.keys():
@@ -45,7 +42,6 @@ def prodsParse(domain,choice):
 			for prod in object_file[selectedBrand][prods].keys():
 				proddict[object_file[selectedBrand][prods][prod]] = prod
 				prodslist[c+1]= proddict
-				#print str(c+1)+". "+prod+"\n"
 		else:
 			break
 		c+=1
@@ -84,12 +80,12 @@ def summarymain(domain, prodID, choice, ch_token, token=4):
 	print "F-Measure =",fmeasure'''
 
 def reviewerBased(domain):
-	fwo = open(DATASET_PATH + "goldreviewers.txt","r")
+	fwo = open(REVIEWS_DATASET_PATH + "goldreviewers.txt","r")
 	goldstdreviewers = fwo.read().strip().split("\n")
-	df = pd.read_csv(ML_PATH+domain.lower()+"_label.csv")
+	df = pd.read_csv(TRAINED_DATA_CSV_PATH+domain.lower()+"_label.csv")
 	reviewerlist = {'reviewerID':[],'label':[]}
 
-	g = load(GZIP_PATH + domain.lower() + '.npz', allow_pickle=True)
+	g = load(RAW_COMPRESSED_DATASET_PATH + domain.lower() + '.npz', allow_pickle=True)
 	g = g['arr_0'].tolist()
 	reviewerIdList = [data['reviewerID'] for data in g]
 	for j in df[df['Label'] == 'FAKE']["ReviewerID"].tolist()[:4000]:
@@ -107,14 +103,10 @@ def reviewerBased(domain):
 	return reviewerlist
 
 def getreviewerdetails(domain, reviewerID):
-	g = load(GZIP_PATH + domain.lower() + '.npz', allow_pickle=True)
+	g = load(RAW_COMPRESSED_DATASET_PATH + domain.lower() + '.npz', allow_pickle=True)
 	g = g['arr_0'].tolist()
-	#g = gzip.open(GZIP_PATH + domain.lower() + '.json.gz', 'r')
 	reviewerInfo = {"review":[],"brand":[],"reviewerName":"","reviewerID":""}
 	for data in g:
-		#json_data = json.dumps(eval(l))
-		#json_obj = re.match(r'(\{.*})',json_data)
-		#data = json.loads(json_obj.group())
 		if data["reviewerID"]==reviewerID:
 			reviewerInfo["review"].append(data["reviewText"])
 			reviewerInfo["brand"].append(data["asin"])
@@ -126,23 +118,16 @@ def cosinesimilarity(domain):
 	docs={}
 	vocabulary = []
 	reviewList = []
-	#g = gzip.open(GZIP_PATH + domain.lower() + '.json.gz', 'r')
-	g = load(GZIP_PATH + domain.lower() + '.npz', allow_pickle=True)
+	g = load(RAW_COMPRESSED_DATASET_PATH + domain.lower() + '.npz', allow_pickle=True)
 	g = g['arr_0'].tolist()
 	index = 0
 	for data in g:
-		#t0 = time.time()
 		if index<=5000:
-			#json_data = json.dumps(eval(l))
-			#json_obj = re.match(r'(\{.*})',json_data)
-			#data = json.loads(json_obj.group())
 			docs[index] = {'freq': {}, 'tf': {}, 'idf': {},
 					'tf-idf': {}, 'tokens': [], 'reviewerID':"",'text':"",'asin':""}
 			docs[index]["reviewerID"] = data["reviewerID"]
 			docs[index]["text"] = data["reviewText"]
 			docs[index]["asin"] = data["asin"]
-			#t1 = time.time()
-			#print t1-t0
 			index+=1
 		else:
 			break
@@ -154,7 +139,7 @@ def cosinesimilarity(domain):
 	m,n = tfidf_matrix.shape
 	doneflag=[0 for i in range(m)]
 	reviewer = {"reviewerID":[],"data":[]}
-	fwo = open(DATASET_PATH + "goldreviewers.txt","r")
+	fwo = open(REVIEWS_DATASET_PATH + "goldreviewers.txt","r")
 	goldstdreviewers = fwo.read().strip().split("\n")
 	for i in range(m-1):
 		tmp = {}
@@ -171,7 +156,7 @@ def cosinesimilarity(domain):
 	return reviewer
 
 def reviewBased(domain):
-	f = open(ML_PATH+domain.lower()+'_review_label.csv', 'rt')
+	f = open(TRAINED_DATA_CSV_PATH+domain.lower()+'_review_label.csv', 'rt')
 	reviewerlist = {'reviewerID':[], 'brandID':[], 'label':[]}
 	try:
 		reader = csv.reader(f)
@@ -185,7 +170,7 @@ def reviewBased(domain):
 	return reviewerlist
 
 def brandRecommendation(domain, prodID):
-	f = open(ML_PATH+domain.lower()+'_review_label.csv', 'rt')
+	f = open(TRAINED_DATA_CSV_PATH+domain.lower()+'_review_label.csv', 'rt')
 	reviewerlist = {'fakecnt':0,'totcnt':0}
 	try:
 		reader = csv.reader(f)
@@ -200,7 +185,7 @@ def brandRecommendation(domain, prodID):
 	return reviewerlist
 
 def getreviewdetails(domain, reviewerID, brandID):
-	g = gzip.open(GZIP_PATH + domain.lower() + '.json.gz', 'r')
+	g = gzip.open(RAW_COMPRESSED_DATASET_PATH + domain.lower() + '.json.gz', 'r')
 	reviewerInfo = {"review":[],"brand":[],"reviewerName":"","reviewerID":""}
 	for l in g:
 		json_data = json.dumps(eval(l))

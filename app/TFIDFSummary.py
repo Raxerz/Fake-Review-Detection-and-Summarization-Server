@@ -46,8 +46,8 @@ def summaryGen(fileName,domain,gram=5,debug=False):
 	docs = {}
 	all_tips = []
 	text = ""
-	#brands_reviews = pickle.load( open(DATASET_PATH +domain.lower()+".pickle", "rb" ) )
-	brands_reviews = load(DATASET_PATH + domain.lower() + '.npz', allow_pickle=True)
+	#brands_reviews = pickle.load( open(REVIEWS_DATASET_PATH +domain.lower()+".pickle", "rb" ) )
+	brands_reviews = load(REVIEWS_DATASET_PATH + domain.lower() + '.npz', allow_pickle=True)
 	brands_reviews = brands_reviews['arr_0'].tolist()
 	review_data = brands_reviews[fileName]
 	for i in review_data:

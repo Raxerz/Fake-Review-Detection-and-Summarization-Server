@@ -126,6 +126,9 @@ USE_L10N = True
 
 USE_TZ = True
 
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/dev/howto/static-files/
+
 STATIC_URL = '/static/'
 
 DATASET_ROOT = os.path.join(BASE_DIR, 'static/datasets')
@@ -135,21 +138,14 @@ STATICFILES_DIRS = [
     DATASET_ROOT
 ]
 
-DATASET_BRANDS_PATH = os.path.join(DATASET_ROOT,'Brands/')
+BRANDS_DATASET_PATH = os.path.join(DATASET_ROOT,'Brands/')
 
-DATASET_PATH = os.path.join(DATASET_ROOT,'Reviews/')
+REVIEWS_DATASET_PATH = os.path.join(DATASET_ROOT,'Reviews/')
 
-SRC_PATH = os.path.join(STATIC_URL,'src/')
+TRAINED_DATA_CSV_PATH = os.path.join(DATASET_ROOT,'ML/')
 
-ML_PATH = os.path.join(DATASET_ROOT,'ML/')
+RAW_COMPRESSED_DATASET_PATH = os.path.join(DATASET_ROOT,'Raw/')
 
-GZIP_PATH = os.path.join(DATASET_ROOT,'Raw/')
-
-JSON_LOC = os.path.join(DATASET_ROOT,'ReviewDetails/')
-
-CUSTOM_MODEL_PATH = os.path.join(STATIC_URL,'src/')
+CUSTOM_REVIEW_MODEL_PATH = os.path.join(DATASET_ROOT,'CustomReviewModel/')
 
 STOP_WORD_PATH = os.path.join(DATASET_ROOT,'Raw/')
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/dev/howto/static-files/

@@ -36,8 +36,7 @@ warnings.filterwarnings("ignore", category=DeprecationWarning)
 fakeness = 0.0
 def parse_custom(prodID, review, domain="cellphones"):
 	global fakeness
-	#brands = pickle.load( open( DATASET_BRANDS_PATH+domain.lower()+".pickle", "rb" ) )
-	brands = load(DATASET_BRANDS_PATH + domain.lower() + '.npz', allow_pickle=True)
+	brands = load(BRANDS_DATASET_PATH + domain.lower() + '.npz', allow_pickle=True)
 	brands = brands['arr_0'].tolist()
 	prodslist={}
 	c=0;
@@ -194,25 +193,22 @@ def predict(domain="cellphones"):
 	# Make predictions on validation dataset
 	knn = KNeighborsClassifier()
 	knn.fit(X_train, Y_train)
-	pickle.dump( knn, open( "save.p", "wb" ) )
+	pickle.dump( knn, open( "knn_custom.p", "wb" ) )
 	predictions = knn.predict(X_validation)
 	print(accuracy_score(Y_validation, predictions))
 	print(confusion_matrix(Y_validation, predictions))
 	print(classification_report(Y_validation, predictions))
 
 def pred(prodID, review, domain="cellphones"):
-	knn = pickle.load(open(CUSTOM_MODEL_PATH + "save.p", "rb" ))
+	knn = pickle.load(open(CUSTOM_REVIEW_MODEL_PATH + "knn_custom.p", "rb" ))
 	X_validation = parse_custom(prodID, review, domain)
-	#print X_validation
 	predictions = knn.predict([X_validation])
 	fake = {"fakeness":str(fakeness)}
 	return fake
 if __name__=='__main__':
 	if not os.path.exists('../datasets/ML/custom_review.csv'):
 		parse()
-	if not os.path.exists('save.p'):
+	if not os.path.exists('knn_custom.p'):
 		predict()
 	else:
 		pred()
-#predict()
-#parse()

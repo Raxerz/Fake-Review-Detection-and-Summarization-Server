@@ -143,8 +143,7 @@ if __name__=='__main__':
 	print(keywords)
 
 def extract_keywords(domain,prodID):
-	#brands_reviews = pickle.load( open( DATASET_PATH+domain.lower()+".pickle", "rb" ) )
-    brands_reviews = load(DATASET_PATH + domain.lower() + '.npz', allow_pickle=True)
+    brands_reviews = load(REVIEWS_DATASET_PATH + domain.lower() + '.npz', allow_pickle=True)
     brands_reviews = brands_reviews['arr_0'].tolist()
     review_data = brands_reviews[prodID]
     text = ""
