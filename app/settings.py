@@ -142,7 +142,7 @@ GZIP_PATH = os.path.join(DATSET_ROOT,'Raw/')
 
 JSON_LOC = os.path.join(DATSET_ROOT,'ReviewDetails/')
 
-CUSTOM_MODEL_PATH = oos.path.join(STATIC_URL,'src/')
+CUSTOM_MODEL_PATH = os.path.join(STATIC_URL,'src/')
 
 STOP_WORD_PATH = os.path.join(DATSET_ROOT,'Raw/')
 
