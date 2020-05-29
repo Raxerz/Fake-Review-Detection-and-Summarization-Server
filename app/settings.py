@@ -126,21 +126,23 @@ USE_L10N = True
 
 USE_TZ = True
 
-DATASET_BRANDS_PATH = os.path.expanduser('~')+'/Downloads/Fake-Review-Detection-and-Summarization-Server/datasets/Brands/'
+DATSET_ROOT = os.path.join(STATIC_URL, '/datasets')
 
-DATASET_PATH = os.path.expanduser('~')+'/Downloads/Fake-Review-Detection-and-Summarization-Server/datasets/Reviews/'
+DATASET_BRANDS_PATH = os.path.join(DATSET_ROOT,'Brands/')
 
-SRC_PATH = os.path.expanduser('~')+'/Downloads/Fake-review-dataset/src/'
+DATASET_PATH = os.path.join(DATSET_ROOT,'Reviews/')
 
-ML_PATH = os.path.expanduser('~')+'/Downloads/Fake-Review-Detection-and-Summarization-Server/datasets/ML/'
+SRC_PATH = os.path.join(STATIC_ROOT,'src/')
 
-GZIP_PATH = os.path.expanduser('~')+'/Downloads/Fake-Review-Detection-and-Summarization-Server/datasets/Raw/'
+ML_PATH = os.path.join(DATSET_ROOT,'ML/')
 
-JSON_LOC = os.path.expanduser('~')+'/Downloads/Fake-review-dataset/datasets/ReviewDetails/'
+GZIP_PATH = os.path.join(DATSET_ROOT,'Raw/')
 
-CUSTOM_MODEL_PATH = os.path.expanduser('~')+'/Downloads/Fake-review-dataset/src/'
+JSON_LOC = os.path.join(DATSET_ROOT,'ReviewDetails/')
 
-STOP_WORD_PATH = os.path.expanduser('~')+'/Downloads/Fake-review-dataset/'
+CUSTOM_MODEL_PATH = oos.path.join(STATIC_ROOT,'src/')
+
+STOP_WORD_PATH = os.path.join(DATSET_ROOT,'Raw/')
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/dev/howto/static-files/
