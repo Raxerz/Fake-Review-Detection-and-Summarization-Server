@@ -126,6 +126,8 @@ USE_L10N = True
 
 USE_TZ = True
 
+STATIC_URL = '/static/'
+
 DATSET_ROOT = os.path.join(STATIC_URL, '/datasets')
 
 DATASET_BRANDS_PATH = os.path.join(DATSET_ROOT,'Brands/')
@@ -146,5 +148,3 @@ STOP_WORD_PATH = os.path.join(DATSET_ROOT,'Raw/')
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/dev/howto/static-files/
-
-STATIC_URL = '/static/'
