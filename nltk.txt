@@ -1,0 +1,7 @@
+movie_reviews
+stopwords
+brown
+treebank
+subjectivity
+conll2000
+wordnet
