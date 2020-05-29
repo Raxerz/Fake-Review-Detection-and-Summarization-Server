@@ -134,7 +134,7 @@ DATASET_BRANDS_PATH = os.path.join(DATSET_ROOT,'Brands/')
 
 DATASET_PATH = os.path.join(DATSET_ROOT,'Reviews/')
 
-SRC_PATH = os.path.join(STATIC_ROOT,'src/')
+SRC_PATH = os.path.join(STATIC_URL,'src/')
 
 ML_PATH = os.path.join(DATSET_ROOT,'ML/')
 
@@ -142,7 +142,7 @@ GZIP_PATH = os.path.join(DATSET_ROOT,'Raw/')
 
 JSON_LOC = os.path.join(DATSET_ROOT,'ReviewDetails/')
 
-CUSTOM_MODEL_PATH = oos.path.join(STATIC_ROOT,'src/')
+CUSTOM_MODEL_PATH = oos.path.join(STATIC_URL,'src/')
 
 STOP_WORD_PATH = os.path.join(DATSET_ROOT,'Raw/')
 
