@@ -5,3 +5,4 @@ treebank
 subjectivity
 conll2000
 wordnet
+punkt
