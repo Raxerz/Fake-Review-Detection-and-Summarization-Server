@@ -128,6 +128,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static")
+]
+
 DATSET_ROOT = os.path.join(STATIC_URL, '/datasets')
 
 DATASET_BRANDS_PATH = os.path.join(DATSET_ROOT,'Brands/')
